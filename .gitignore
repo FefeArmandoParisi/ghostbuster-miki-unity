@@ -37,6 +37,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Visual Studio Config
+.vsconfig
+
 # Github related content
 .github/
 
