@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79c846bdf352704c9ac0a6fe0cb9d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  speed: 2
-  stopDistance: 2
+  speed: 3
+  stopDistance: 0
   findRetryInterval: 1
 --- !u!50 &1300858378737233935
 Rigidbody2D:
@@ -196,3 +196,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   health: 2
+  damageAmount: 1

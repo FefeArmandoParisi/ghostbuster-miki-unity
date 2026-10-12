@@ -4,20 +4,12 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private int health;
+    [SerializeField] private int damageAmount;
     private int hitFlashFrames = 6;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public int DamageAmount => damageAmount;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,6 +43,18 @@ public class EnemyBase : MonoBehaviour
                 StartCoroutine(FlashRedForFrames(hitFlashFrames));
             }
 
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Collider2D collider = collision.collider;
+
+        PlayerBase player = collider.GetComponent<PlayerBase>();
+
+        if (collider.CompareTag("Player"))
+        {
+            player.Damage(damageAmount);
         }
     }
 }

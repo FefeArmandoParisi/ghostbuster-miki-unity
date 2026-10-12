@@ -6,7 +6,7 @@ public class EnemyChase : MonoBehaviour
     [SerializeField, Range(0f, 10f)]
     private float speed = 3f; // configurable in the Inspector as a slider
     [SerializeField]
-    private float stopDistance = 0.1f;
+    private float stopDistance = 0f;
 
     [Tooltip("How often (seconds) to retry finding the player if not present at Start.")]
     [SerializeField]
