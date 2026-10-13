@@ -104,6 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198a151bbbb296d40a514fa46d352bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEmitter
-  spawnTime: 1
+  spawnTime: 3
   enemyObject: {fileID: 0}
-  maxEnemiesOnScreen: 20

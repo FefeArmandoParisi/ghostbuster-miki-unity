@@ -5,6 +5,8 @@ public class EnemyBase : MonoBehaviour
 {
     [SerializeField] private int health;
     [SerializeField] private int damageAmount;
+    [SerializeField] private GameObject powerUpPrefab;
+    [SerializeField] private int powerUpDropChanceDenominator = 20;
     private int hitFlashFrames = 6;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -14,6 +16,44 @@ public class EnemyBase : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("PlayerBullet"))
+        {
+            Destroy(collider.gameObject);
+            health--;
+
+            if (health <= 0)
+            {
+                TrySpawnPowerUp();
+                Destroy(gameObject);
+            }
+            else
+            {
+                StartCoroutine(FlashRedForFrames(hitFlashFrames));
+            }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        Collider2D collider = collision.collider;
+
+        if (collider.CompareTag("Player"))
+        {
+            PlayerBase player = collider.GetComponent<PlayerBase>();
+            if (player.CheckStatus() == GameConstants.PlayerStatus.Hurt)
+            {
+                return;
+            }
+            else
+            {
+                player.PowerDown();
+                player.Damage(damageAmount);
+            }
+        }
     }
 
     private IEnumerator FlashRedForFrames(int frames)
@@ -26,35 +66,16 @@ public class EnemyBase : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void TrySpawnPowerUp()
     {
-        if (collider.CompareTag("PlayerBullet"))
+        if (powerUpPrefab == null)
         {
-            if (health <= 0)
-            {
-                Destroy(collider.gameObject);
-                Destroy(gameObject);
-
-            }
-            else
-            {
-                Destroy(collider.gameObject);
-                health--;
-                StartCoroutine(FlashRedForFrames(hitFlashFrames));
-            }
-
+            return;
         }
-    }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        Collider2D collider = collision.collider;
-
-        PlayerBase player = collider.GetComponent<PlayerBase>();
-
-        if (collider.CompareTag("Player"))
+        if (Random.Range(0, powerUpDropChanceDenominator) == 0)
         {
-            player.Damage(damageAmount);
+            Instantiate(powerUpPrefab, transform.position, Quaternion.identity);
         }
     }
 }

@@ -10,8 +10,10 @@ public class Menu : MonoBehaviour
 
     public void HandleQuitClick()
     {
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        Application.Quit();
-
+#else
+            Application.Quit();
+#endif
     }
 }

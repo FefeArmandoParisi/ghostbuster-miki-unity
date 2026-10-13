@@ -197,3 +197,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   health: 2
   damageAmount: 1
+  powerUpPrefab: {fileID: 4919147809067604407, guid: 3c8435e94164b1346aa4b069adc6a4eb, type: 3}
+  powerUpDropChanceDenominator: 10
