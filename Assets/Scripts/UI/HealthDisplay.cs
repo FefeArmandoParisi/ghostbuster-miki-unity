@@ -31,15 +31,7 @@ public class HealthDisplay : MonoBehaviour
             return;
         }
 
-        if (player.CheckStatus() == GameConstants.PlayerStatus.Dead)
-        {
-            //TODO: End game or retry, if doing lives also, restore health and substract a life.
-        }
-        else
-        {
-            SetHealthText(healthText + player.CheckHealth());
-        }
-
+        SetHealthText(healthText + player.CheckHealth());
     }
 
     void SetHealthText(string value)

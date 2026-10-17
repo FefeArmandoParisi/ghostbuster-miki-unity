@@ -2,21 +2,12 @@ using UnityEngine;
 
 public class BulletPlayerDirection : MonoBehaviour
 {
-    [Tooltip("Bullet prefab to instantiate. The bullet itself should handle its movement.")]
-    [SerializeField]
-    private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
-    [Tooltip("How often (seconds) until shooting again.")]
-    [SerializeField]
-    private float shootInterval = 2f;
+    [SerializeField] private float shootInterval = 2f;
 
     private Transform player;
     private float nextFindTime;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -49,10 +40,6 @@ public class BulletPlayerDirection : MonoBehaviour
         if (bulletPrefab != null)
         {
             Instantiate(bulletPrefab, transform.position, rot);
-        }
-        else
-        {
-            Debug.LogWarning("BulletPlayerDirection: No bulletPrefab assigned.");
         }
 
         nextFindTime = Time.time + shootInterval;

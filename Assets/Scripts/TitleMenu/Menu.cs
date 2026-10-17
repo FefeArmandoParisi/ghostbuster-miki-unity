@@ -5,15 +5,11 @@ public class Menu : MonoBehaviour
 {
     public void HandleDebugClick()
     {
-        SceneManager.LoadScene("DebugScene");
+        SceneManager.LoadScene("DebugScene"); //TODO: No hardcoded values
     }
 
     public void HandleQuitClick()
     {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+        Application.Quit();
     }
 }

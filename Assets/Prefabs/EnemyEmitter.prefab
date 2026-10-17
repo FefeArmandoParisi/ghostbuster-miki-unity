@@ -105,4 +105,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEmitter
   spawnTime: 3
-  enemyObject: {fileID: 0}
+  enemyObject: {fileID: 3631284724285884500, guid: c76a87f4ff4754a48ac304a13122993a, type: 3}

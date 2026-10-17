@@ -31,8 +31,6 @@ public class PlayerAction : MonoBehaviour
             nextFireTime = Time.time + fireInterval;
             int powerLevel = player.CheckPowerLevel();
 
-            Debug.Log(powerLevel);
-
             switch (powerLevel)
             {
                 case 2:

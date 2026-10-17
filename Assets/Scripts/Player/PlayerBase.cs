@@ -4,15 +4,24 @@ using static GameConstants;
 
 public class PlayerBase : MonoBehaviour
 {
-    [SerializeField] private int health = 100; // TODO: Change this, should not be exposed. It's ok now for debug means.
-    [SerializeField] private float hurtDurationSeconds = 1f; // TODO: Change this, should not be exposed. It's ok now for debug means.
+    [SerializeField] private int maxHealth; // Max health is set by the value passed to this field
+    [SerializeField] private float hurtDurationSeconds; // The Hurt Status duration is set by this field
+    [SerializeField] private int maxCredits; // Max credit number is set by this field
     private Coroutine hurtResetCoroutine;
     private Coroutine flashCoroutine;
     private PlayerStatus status = PlayerStatus.Default;
     private int powerUpLevel = 1;
+
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private bool isFlashingRed;
+    private int currentHealth;
+    private int currentCredits;
+
+    public void Start()
+    {
+        ResetPlayer();
+    }
 
     public void Update()
     {
@@ -60,7 +69,7 @@ public class PlayerBase : MonoBehaviour
 
     public int CheckHealth()
     {
-        return health;
+        return currentHealth;
     }
 
     public PlayerStatus CheckStatus()
@@ -73,6 +82,11 @@ public class PlayerBase : MonoBehaviour
         return powerUpLevel;
     }
 
+    public int CheckRemainingCredits()
+    {
+        return currentCredits;
+    }
+
     public void SetStatus(PlayerStatus newStatus)
     {
         status = newStatus;
@@ -81,6 +95,11 @@ public class PlayerBase : MonoBehaviour
     public void SetDefaultStatus()
     {
         status = PlayerStatus.Default;
+    }
+
+    public void SubstractCredit()
+    {
+        currentCredits--;
     }
 
     public void PowerUp()
@@ -95,21 +114,8 @@ public class PlayerBase : MonoBehaviour
         powerUpLevel--;
     }
 
-    public void Damage(int damageAmount)
+    void HurtStatus()
     {
-        if (status == PlayerStatus.Hurt)
-        {
-            return;
-        }
-
-        health -= damageAmount;
-
-        if (health <= 0)
-        {
-            SetStatus(PlayerStatus.Dead);
-            return;
-        }
-
         SetStatus(PlayerStatus.Hurt);
 
         if (hurtResetCoroutine != null)
@@ -126,9 +132,43 @@ public class PlayerBase : MonoBehaviour
         flashCoroutine = StartCoroutine(FlashRedForFrames(20));
     }
 
+    public void Damage(int damageAmount)
+    {
+        if (status == PlayerStatus.Hurt)
+        {
+            return;
+        }
+
+        int newHealth = currentHealth -= damageAmount;
+
+        if (newHealth <= 0)
+        {
+            SetStatus(PlayerStatus.Dead);
+            return;
+        }
+
+        HurtStatus();
+    }
+
     public void Recover(int recoverAmount)
     {
-        health += recoverAmount;
+        currentHealth += recoverAmount;
+    }
+
+    public void ResetPlayer()
+    {
+        currentHealth = maxHealth;
+        status = PlayerStatus.Default;
+        powerUpLevel = 1;
+        if (currentCredits > 0)
+        {
+            currentCredits--;
+            HurtStatus();
+        }
+        else
+        {
+            currentCredits = maxCredits;
+        }
     }
 
     private IEnumerator ResetHurtStatusAfterDelay()
