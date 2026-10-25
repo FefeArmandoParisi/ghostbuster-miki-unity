@@ -7,6 +7,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private int damageAmount;
     [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private int powerUpDropChanceDenominator = 20;
+    //
     private int hitFlashFrames = 6;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -20,6 +21,7 @@ public class EnemyBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        Debug.Log("Entered Trigger");
         if (collider.CompareTag("PlayerBullet"))
         {
             Destroy(collider.gameObject);
@@ -34,6 +36,10 @@ public class EnemyBase : MonoBehaviour
             {
                 StartCoroutine(FlashRedForFrames(hitFlashFrames));
             }
+        }
+        else if (collider.CompareTag("EnemyDestroyer"))
+        {
+            Destroy(gameObject);
         }
     }
 

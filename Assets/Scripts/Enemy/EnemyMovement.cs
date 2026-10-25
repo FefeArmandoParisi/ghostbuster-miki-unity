@@ -1,62 +1,46 @@
 using UnityEngine;
 
-public class MonsterMovement : MonoBehaviour
+public class EnemyOscilate : MonoBehaviour
 {
-    // horizontal speed (units per second). Positive moves right, negative moves left.
-    public float speed = 1f;
-
-    // vertical amplitude in Unity units
     public float verticalAmplitude = 1f;
 
-    // vertical movement speed (units per second)
     public float verticalSpeed = 1f;
 
-    // optional camera reference; if null, Camera.main will be used
-    public Camera cam;
+    public float speed = 1f;
+
+    [SerializeField] private AnimationCurve verticalEase = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     private float startY;
-    private bool movingUp = true;
-    private float halfWidth = 0f;
+    private float oscillation01;
 
-    void Start()
+    private void OnEnable()
     {
+        // Important for spawning/pooling: capture spawn Y each time this enemy is enabled
         startY = transform.position.y;
-        cam = cam ? cam : Camera.main;
-
-        // Get half width from any Renderer (SpriteRenderer, MeshRenderer, etc.)
-        var r = GetComponent<Renderer>();
-        if (r != null)
-            halfWidth = r.bounds.extents.x;
+        oscillation01 = 0f;
     }
 
     void Update()
     {
-        if (cam == null)
+        if (verticalAmplitude <= 0f || verticalSpeed <= 0f)
+        {
+            // still move forward even if vertical oscillation is disabled
+            transform.position += Vector3.right * (speed * Time.deltaTime);
             return;
+        }
 
-        // Horizontal movement (wrap when crossing camera edges)
         Vector3 pos = transform.position;
-        pos.x += speed * Time.deltaTime;
 
-        // compute z distance for ViewportToWorldPoint
-        float z = Mathf.Abs(cam.transform.position.z - transform.position.z);
+        // Forward movement
+        pos += Vector3.right * (speed * Time.deltaTime);
 
-        float leftWorld = cam.ViewportToWorldPoint(new Vector3(0f, 0f, z)).x - halfWidth;
-        float rightWorld = cam.ViewportToWorldPoint(new Vector3(1f, 0f, z)).x + halfWidth;
+        // Vertical oscillation with easing at top/bottom limits
+        float fullRange = verticalAmplitude * 2f;
+        oscillation01 += (verticalSpeed / fullRange) * Time.deltaTime;
 
-        // If passed right edge -> wrap to left; if passed left edge -> wrap to right
-        if (pos.x > rightWorld)
-            pos.x = leftWorld;
-        else if (pos.x < leftWorld)
-            pos.x = rightWorld;
-
-        // Vertical: oscillate between startY + verticalAmplitude and startY - verticalAmplitude
-        float targetY = movingUp ? startY + verticalAmplitude : startY - verticalAmplitude;
-        float newY = Mathf.MoveTowards(pos.y, targetY, verticalSpeed * Time.deltaTime);
-        pos.y = newY;
-
-        if (Mathf.Approximately(newY, targetY))
-            movingUp = !movingUp;
+        float t = Mathf.PingPong(oscillation01, 1f);     // 0..1..0
+        float easedT = verticalEase.Evaluate(t);         // ease at both ends
+        pos.y = Mathf.Lerp(startY - verticalAmplitude, startY + verticalAmplitude, easedT);
 
         transform.position = pos;
     }
