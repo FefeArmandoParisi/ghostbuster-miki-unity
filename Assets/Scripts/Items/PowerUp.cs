@@ -11,7 +11,7 @@ public class PowerUp : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag(GameConstants.PlayerTag))
         {
             PlayerBase player = collider.GetComponent<PlayerBase>();
             player.PowerUp();

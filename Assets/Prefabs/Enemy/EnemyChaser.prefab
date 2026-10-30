@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 1635571490724752781}
   - component: {fileID: -9004436906124879169}
   - component: {fileID: 6386813178550194385}
-  m_Layer: 0
+  - component: {fileID: 8525374166713426141}
+  m_Layer: 6
   m_Name: EnemyChaser
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -83,9 +84,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -622048261
+  m_SortingLayer: 4
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4727608673205378118, guid: a7584793ce8bf8f4cac620edfba8ccc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -112,6 +113,7 @@ MonoBehaviour:
   speed: 3
   stopDistance: 0
   findRetryInterval: 1
+  isBoss: 0
 --- !u!50 &1300858378737233935
 Rigidbody2D:
   serializedVersion: 5
@@ -200,7 +202,8 @@ MonoBehaviour:
   health: 2
   damageAmount: 1
   powerUpPrefab: {fileID: 4919147809067604407, guid: 3c8435e94164b1346aa4b069adc6a4eb, type: 3}
-  powerUpDropChanceDenominator: 10
+  deathAnimation: {fileID: 877123265363635011, guid: 2d67eb1049b26844b9d46d8b32e69131, type: 3}
+  powerUpDropChanceDenominator: 7
 --- !u!95 &6386813178550194385
 Animator:
   serializedVersion: 7
@@ -223,6 +226,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8525374166713426141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631284724285884500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10935ee01aeacc74ba684d4515d3d46c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleRender
+  particlePrefab: {fileID: 2564899602083590265, guid: 5ffed1008f612174fb0f96324945abe3, type: 3}
+  spawnInterval: 0.53
+  particleSize: 4
 --- !u!1 &4656001356897649647
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,8 +251,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8953829642118963243}
   - component: {fileID: 6487669551083282027}
-  m_Layer: 0
-  m_Name: GameObject
+  m_Layer: 6
+  m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

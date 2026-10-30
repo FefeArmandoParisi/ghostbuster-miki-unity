@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -16,6 +16,20 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (LevelState.Instance.IsInputLocked)
+        {
+            if (LevelState.Instance.BossDefeated)
+            {
+                animator.SetBool("Praying", true);
+                StopMoving();
+                return;
+            }
+            else
+            {
+                return;
+            }
+        }
 
         if (input != Vector2.zero)
         {

@@ -3,21 +3,24 @@ using UnityEngine;
 public class PlayerAction : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
-    private float fireInterval = 0.2f;
+    [SerializeField] private float fireInterval;
+    [SerializeField] private float bulletSeparationOffset;
     private float nextFireTime = 0f;
-    private float bulletOffset = 20f;
-    private Camera mainCam;
-    private Vector3 mousePos;
     private PlayerBase player;
 
-    private void Awake()
+    private void Start()
     {
-        player = GetComponentInParent<PlayerBase>();
+        player = GameObjectUtils.FindPlayer();
     }
 
     void Update()
     {
         if (player == null)
+        {
+            return;
+        }
+
+        if (LevelState.Instance.IsInputLocked)
         {
             return;
         }
@@ -34,17 +37,16 @@ public class PlayerAction : MonoBehaviour
             switch (powerLevel)
             {
                 case 2:
-                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -bulletOffset));
-                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, bulletOffset));
+                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -bulletSeparationOffset));
+                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, bulletSeparationOffset));
                     break;
                 case 3:
-                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -bulletOffset));
-                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, bulletOffset));
+                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, -bulletSeparationOffset));
+                    Instantiate(bullet, transform.position, transform.rotation * Quaternion.Euler(0f, 0f, bulletSeparationOffset));
                     Instantiate(bullet, transform.position, transform.rotation);
                     break;
                 default:
                     Instantiate(bullet, transform.position, transform.rotation);
-
                     break;
             }
         }

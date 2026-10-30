@@ -12,7 +12,8 @@ public class EnemyChase : MonoBehaviour
     [SerializeField]
     private float findRetryInterval = 1f;
 
-    private Transform player;
+    [SerializeField] bool isBoss = false;
+    private PlayerBase player;
     private float nextFindTime;
 
     void Start()
@@ -22,6 +23,11 @@ public class EnemyChase : MonoBehaviour
 
     void Update()
     {
+        if (isBoss && LevelState.Instance.BossDefeated)
+        {
+            return;
+        }
+
         if (player == null)
         {
             if (Time.time >= nextFindTime)
@@ -33,7 +39,7 @@ public class EnemyChase : MonoBehaviour
         }
 
         Vector3 pos = transform.position;
-        Vector3 target = player.position;
+        Vector3 target = player.transform.position;
         float dist = Vector3.Distance(pos, target);
 
         if (dist > stopDistance)

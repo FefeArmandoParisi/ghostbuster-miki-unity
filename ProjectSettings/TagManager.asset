@@ -16,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Enemies
   - 
   - 
   - 
@@ -45,6 +45,30 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4219577673
+    locked: 0
+  - name: PowerUps
+    uniqueID: 277653285
+    locked: 0
+  - name: Effects Underlay
+    uniqueID: 1085563255
+    locked: 0
+  - name: Enemies
+    uniqueID: 3672919035
+    locked: 0
+  - name: Bullets
+    uniqueID: 68563059
+    locked: 0
+  - name: Player
+    uniqueID: 3897234923
+    locked: 0
+  - name: Effects Overlay
+    uniqueID: 3059150911
+    locked: 0
+  - name: UI
+    uniqueID: 3784509565
     locked: 0
   m_RenderingLayers:
   - Default

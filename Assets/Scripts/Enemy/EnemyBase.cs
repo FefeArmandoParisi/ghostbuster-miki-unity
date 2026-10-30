@@ -6,22 +6,28 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int damageAmount;
     [SerializeField] private GameObject powerUpPrefab;
+    [SerializeField] private GameObject deathAnimation;
     [SerializeField] private int powerUpDropChanceDenominator = 20;
-    //
     private int hitFlashFrames = 6;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-    public int DamageAmount => damageAmount;
-
-    private void Awake()
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
     }
 
+    private void Update()
+    {
+        if (LevelState.Instance.BossDefeated)
+        {
+            Instantiate(deathAnimation, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("Entered Trigger");
         if (collider.CompareTag("PlayerBullet"))
         {
             Destroy(collider.gameObject);
@@ -30,16 +36,14 @@ public class EnemyBase : MonoBehaviour
             if (health <= 0)
             {
                 TrySpawnPowerUp();
+                Instantiate(deathAnimation, transform.position, Quaternion.identity);
+                LevelState.Instance.RegisterEnemyDefeated();
                 Destroy(gameObject);
             }
             else
             {
                 StartCoroutine(FlashRedForFrames(hitFlashFrames));
             }
-        }
-        else if (collider.CompareTag("EnemyDestroyer"))
-        {
-            Destroy(gameObject);
         }
     }
 

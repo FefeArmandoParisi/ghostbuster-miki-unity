@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using static GameConstants;
 
@@ -11,7 +12,6 @@ public class PlayerBase : MonoBehaviour
     private Coroutine flashCoroutine;
     private PlayerStatus status = PlayerStatus.Default;
     private int powerUpLevel = 1;
-
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private bool isFlashingRed;
@@ -21,6 +21,18 @@ public class PlayerBase : MonoBehaviour
     public void Start()
     {
         ResetPlayer();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
     }
 
     public void Update()
@@ -52,24 +64,14 @@ public class PlayerBase : MonoBehaviour
         spriteRenderer.color = color;
     }
 
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
-
-        if (spriteRenderer != null)
-        {
-            originalColor = spriteRenderer.color;
-        }
-    }
-
     public int CheckHealth()
     {
         return currentHealth;
+    }
+
+    public int CheckMaxHealth()
+    {
+        return maxHealth;
     }
 
     public PlayerStatus CheckStatus()
@@ -139,9 +141,11 @@ public class PlayerBase : MonoBehaviour
             return;
         }
 
-        int newHealth = currentHealth -= damageAmount;
+        // Had a bug where health could be -1 and it broke the health UI, 
+        // so this max only allows the health to go so far as 0
+        currentHealth = Mathf.Max(currentHealth - damageAmount, 0);
 
-        if (newHealth <= 0)
+        if (currentHealth == 0)
         {
             SetStatus(PlayerStatus.Dead);
             return;
@@ -150,9 +154,10 @@ public class PlayerBase : MonoBehaviour
         HurtStatus();
     }
 
+    // Might be left unused, I haven't added a recovery Item yet
     public void Recover(int recoverAmount)
     {
-        currentHealth += recoverAmount;
+        currentHealth = Mathf.Min(currentHealth + recoverAmount, maxHealth);
     }
 
     public void ResetPlayer()
