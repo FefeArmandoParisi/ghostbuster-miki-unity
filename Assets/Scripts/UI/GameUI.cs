@@ -1,35 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class UI : MonoBehaviour
+public class GameUI : MonoBehaviour
 {
     [SerializeField] private GameObject tryAgainOverlay;
-    [SerializeField] private GameObject gameOverOverlay;
     [SerializeField] private GameObject levelCompleteText;
+    [SerializeField] private GameObject bossHealthDisplay;
     private PlayerBase player;
     private bool hasExited = false;
 
-    private void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBase>();
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObjectUtils.FindPlayer();
+
         if (tryAgainOverlay != null)
         {
             tryAgainOverlay.SetActive(false);
         }
 
-        if (gameOverOverlay != null)
+        if (bossHealthDisplay != null)
         {
-            gameOverOverlay.SetActive(false);
+            bossHealthDisplay.SetActive(false);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -43,8 +39,15 @@ public class UI : MonoBehaviour
             return;
         }
 
-        if (gameOverOverlay == null)
+        if (LevelState.Instance.BossFight)
         {
+            bossHealthDisplay.SetActive(true);
+        }
+
+        if (LevelState.Instance.BossDefeated)
+        {
+            levelCompleteText.SetActive(true);
+            StartCoroutine(LevelCompleteAnimation());
             return;
         }
 
@@ -58,23 +61,17 @@ public class UI : MonoBehaviour
                 return;
             }
 
-            PauseGame();
             int remainingCredits = player.CheckRemainingCredits();
             if (remainingCredits > 0)
             {
+                PauseGame();
                 LevelState.Instance.SetInputLocked(true);
                 tryAgainOverlay.SetActive(true);
             }
             else
             {
-                gameOverOverlay.SetActive(true);
+                SceneManager.LoadScene(GameConstants.GameOver);
             }
-        }
-
-        if (LevelState.Instance.BossDefeated)
-        {
-            levelCompleteText.SetActive(true);
-            StartCoroutine(LevelCompleteAnimation());
         }
     }
 
@@ -94,17 +91,11 @@ public class UI : MonoBehaviour
         tryAgainOverlay.SetActive(false);
     }
 
-    void GameOverHide()
-    {
-        ResumeGame();
-        gameOverOverlay.SetActive(false);
-    }
-
     void ReturnToTitle()
     {
         hasExited = true;
         ResumeGame();
-        SceneManager.LoadScene("TitleMenu"); //TODO: No hardcoded values
+        SceneManager.LoadScene(GameConstants.TitleMenu);
     }
 
     public void TryAgainAccept()
@@ -119,20 +110,11 @@ public class UI : MonoBehaviour
         ReturnToTitle();
     }
 
-    public void RestartGame()
-    {
-        hasExited = true;
-        GameOverHide();
-        LevelState.Instance.SetInputLocked(false);
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
-    }
-
     public void QuitGame()
     {
         hasExited = true;
         ResumeGame();
-        SceneManager.LoadScene("TitleMenu"); //TODO: No hardcoded values
+        SceneManager.LoadScene(GameConstants.TitleMenu);
     }
 
     private IEnumerator LevelCompleteAnimation()

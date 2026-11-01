@@ -8,6 +8,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private GameObject deathAnimation;
     [SerializeField] private int powerUpDropChanceDenominator = 20;
+    [SerializeField] private AudioClip enemyHitSound;
+    [SerializeField] private AudioClip playerHitSound;
     private int hitFlashFrames = 6;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -32,6 +34,10 @@ public class EnemyBase : MonoBehaviour
         {
             Destroy(collider.gameObject);
             health--;
+            if (enemyHitSound != null)
+            {
+                AudioSource.PlayClipAtPoint(enemyHitSound, transform.position);
+            }
 
             if (health <= 0)
             {
@@ -60,6 +66,10 @@ public class EnemyBase : MonoBehaviour
             }
             else
             {
+                if (playerHitSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(playerHitSound, transform.position);
+                }
                 player.PowerDown();
                 player.Damage(damageAmount);
             }

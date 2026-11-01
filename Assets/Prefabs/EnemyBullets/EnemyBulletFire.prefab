@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af61138d48eadb2408ba7fc7ca211526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletMovement
+  isBossBullet: 0
   speed: 10
 --- !u!58 &7166564870426594202
 CircleCollider2D:
@@ -179,3 +180,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletCollision
   hitParticle: {fileID: 877123265363635011, guid: 00508ee463ac2f046a67ffe90ffe0b00, type: 3}
+  playerHitSound: {fileID: 8300000, guid: 81fd0c9fbf3b8c74f8f699627027406a, type: 3}
+  damage: 1

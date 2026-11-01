@@ -3,18 +3,23 @@ using UnityEngine;
 
 public class BossBase : MonoBehaviour
 {
-    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
     [SerializeField] private int damageAmount;
     [SerializeField] private GameObject deathAnimation;
+    [SerializeField] private AudioClip enemyHitSound;
+    [SerializeField] private AudioClip playerHitSound;
     private int hitFlashFrames = 6;
     private float deathAnimationSpawnTime = 0.5f;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+    private int currentHealth;
+    public int MaxHealth => maxHealth;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        currentHealth = maxHealth;
     }
 
     private void Update()
@@ -30,9 +35,13 @@ public class BossBase : MonoBehaviour
         if (collider.CompareTag("PlayerBullet"))
         {
             Destroy(collider.gameObject);
-            health--;
+            currentHealth--;
+            if (enemyHitSound != null)
+            {
+                AudioSource.PlayClipAtPoint(enemyHitSound, transform.position);
+            }
 
-            if (health <= 0)
+            if (currentHealth <= 0)
             {
                 LevelState.Instance.SetBossDefeated(true);
                 LevelState.Instance.SetInputLocked(true);
@@ -57,6 +66,10 @@ public class BossBase : MonoBehaviour
             }
             else
             {
+                if (playerHitSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(playerHitSound, transform.position);
+                }
                 player.PowerDown();
                 player.Damage(damageAmount);
             }
@@ -87,5 +100,10 @@ public class BossBase : MonoBehaviour
         float x = Random.Range(bounds.min.x, bounds.max.x);
         float y = Random.Range(bounds.min.y, bounds.max.y);
         return new Vector3(x, y, transform.position.z);
+    }
+
+    public int CurrentHealth()
+    {
+        return currentHealth;
     }
 }

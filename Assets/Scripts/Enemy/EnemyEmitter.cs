@@ -5,6 +5,7 @@ public class EnemyEmitter : MonoBehaviour
 {
     [SerializeField] private float spawnTime = 120f;
     [SerializeField] private GameObject enemyObject;
+    [SerializeField] private AudioClip spawnEnemySound;
     private float closeAnimationTime = 1f;
     private Animator animator;
 
@@ -25,6 +26,10 @@ public class EnemyEmitter : MonoBehaviour
                 yield return null;
             }
 
+            if (spawnEnemySound != null)
+            {
+                AudioSource.PlayClipAtPoint(spawnEnemySound, transform.position);
+            }
             CreateEnemy();
         }
 

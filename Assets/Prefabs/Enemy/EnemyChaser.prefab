@@ -86,7 +86,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -622048261
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4727608673205378118, guid: a7584793ce8bf8f4cac620edfba8ccc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,8 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79c846bdf352704c9ac0a6fe0cb9d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChase
-  speed: 3
-  stopDistance: 0
+  speed: 2.742
   findRetryInterval: 1
   isBoss: 0
 --- !u!50 &1300858378737233935
@@ -203,7 +202,9 @@ MonoBehaviour:
   damageAmount: 1
   powerUpPrefab: {fileID: 4919147809067604407, guid: 3c8435e94164b1346aa4b069adc6a4eb, type: 3}
   deathAnimation: {fileID: 877123265363635011, guid: 2d67eb1049b26844b9d46d8b32e69131, type: 3}
-  powerUpDropChanceDenominator: 7
+  powerUpDropChanceDenominator: 9
+  enemyHitSound: {fileID: 8300000, guid: 603436823f637bc40a901d57860e6721, type: 3}
+  playerHitSound: {fileID: 8300000, guid: 81fd0c9fbf3b8c74f8f699627027406a, type: 3}
 --- !u!95 &6386813178550194385
 Animator:
   serializedVersion: 7
@@ -318,8 +319,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -622048261
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2155806606520402053, guid: 721bdda1c5824c9479c1ee6feed7fd1d, type: 3}

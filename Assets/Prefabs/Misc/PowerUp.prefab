@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4531772852026070161}
   - component: {fileID: 7021573704430672301}
   - component: {fileID: 1013630933411631097}
-  - component: {fileID: 5468572864240903147}
   - component: {fileID: 3053830418486645748}
+  - component: {fileID: 5468572864240903147}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 277653285
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4844802961585125147, guid: 2720152e69918b74c90a5b9f9cb1f71d, type: 3}
@@ -140,19 +140,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &5468572864240903147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4919147809067604407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207d6c3c9117d6348879f079fbd72b83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PowerUp
-  removeAfterSeconds: 10
 --- !u!95 &3053830418486645748
 Animator:
   serializedVersion: 7
@@ -175,3 +162,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5468572864240903147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4919147809067604407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207d6c3c9117d6348879f079fbd72b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUp
+  removeAfterSeconds: 10
+  collisionSound: {fileID: 8300000, guid: 4f23af0a11ede8b489d513c2d0d56925, type: 3}

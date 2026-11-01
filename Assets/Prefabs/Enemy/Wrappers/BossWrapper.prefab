@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5529292442265300135
 Transform:
   m_ObjectHideFlags: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6dd11f6c8c1ad439bfeee777748069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossWrapper
-  bossObject: {fileID: 0}
+  bossObject: {fileID: 5824662300332428343}
 --- !u!1001 &3204774167166105028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,10 +54,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5529292442265300135}
     m_Modifications:
-    - target: {fileID: 3537907087613679911, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
-      propertyPath: parentAnimator
-      value: 
-      objectReference: {fileID: 1759243860568558284}
     - target: {fileID: 7398960835446505852, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -102,22 +98,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletonBoss
       objectReference: {fileID: 0}
-    - target: {fileID: 8983835321601112563, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
---- !u!95 &1759243860568558284 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3752540656924458760, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
-  m_PrefabInstance: {fileID: 3204774167166105028}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5392997390722118840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7398960835446505852, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
+  m_PrefabInstance: {fileID: 3204774167166105028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5824662300332428343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8983835321601112563, guid: aa5e6ac2a20416545b34ec82e10ffbc1, type: 3}
   m_PrefabInstance: {fileID: 3204774167166105028}
   m_PrefabAsset: {fileID: 0}

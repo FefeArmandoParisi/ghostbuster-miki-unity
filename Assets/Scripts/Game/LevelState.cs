@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelState : MonoBehaviour
 {
@@ -8,9 +10,8 @@ public class LevelState : MonoBehaviour
     // It also keeps count of how many enemies are defeated and triggers a
     // boss fight for the level when the quota is met.
     public static LevelState Instance { get; private set; }
-
+    [SerializeField] private AudioClip victoryTune;
     [SerializeField] private int enemiesToDefeat;
-
     public int EnemiesToDefeat => enemiesToDefeat;
 
     // {get; private set;} means that it the value can be looked but cannot be modified outside the script. 
@@ -20,6 +21,9 @@ public class LevelState : MonoBehaviour
     public bool EnemySpawn { get; private set; }
     public bool BossFight { get; private set; }
     public bool BossDefeated { get; private set; }
+    public bool levelComplete = false;
+    float secondsToChangeScene = 8f;
+    AudioSource music;
 
     private void Awake()
     {
@@ -34,19 +38,20 @@ public class LevelState : MonoBehaviour
     private void Start()
     {
         ResetLevelState();
+        music = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         if (!BossFight && EnemiesDefeated >= enemiesToDefeat)
         {
-            // Stop spawning enemies and start the boss fight of the level
             SetEnemySpawn(false);
             SetBossFight(true);
         }
-        else if (BossFight)
+        else if (BossFight && BossDefeated && !levelComplete)
         {
-
+            levelComplete = true;
+            StartCoroutine(FinishLevel());
         }
     }
 
@@ -92,5 +97,17 @@ public class LevelState : MonoBehaviour
         SetEnemySpawn(true);
         SetBossFight(false);
         ResetEnemiesDefeated();
+    }
+
+    private IEnumerator FinishLevel()
+    {
+        if (victoryTune != null && music != null)
+        {
+            music.Stop();
+            AudioSource.PlayClipAtPoint(victoryTune, transform.position);
+        }
+        yield return new WaitForSeconds(secondsToChangeScene);
+
+        SceneManager.LoadScene(GameConstants.ThankYouForPlaying);
     }
 }

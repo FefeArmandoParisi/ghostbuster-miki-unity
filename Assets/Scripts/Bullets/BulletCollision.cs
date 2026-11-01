@@ -3,6 +3,9 @@ using UnityEngine;
 public class BulletCollision : MonoBehaviour
 {
     [SerializeField] private GameObject hitParticle;
+    [SerializeField] private AudioClip playerHitSound;
+    [SerializeField] private int damage;
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (hitParticle == null)
@@ -19,8 +22,12 @@ public class BulletCollision : MonoBehaviour
             }
             else
             {
+                if (playerHitSound != null)
+                {
+                    AudioSource.PlayClipAtPoint(playerHitSound, transform.position);
+                }
                 player.PowerDown();
-                player.Damage(1); // TODO: replace hardcoded value
+                player.Damage(damage);
             }
 
             Vector2 hitPoint = GetComponent<Collider2D>().ClosestPoint(collider.transform.position);

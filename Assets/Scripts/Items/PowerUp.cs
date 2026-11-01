@@ -4,6 +4,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] private float removeAfterSeconds = 10;
+    [SerializeField] private AudioClip collisionSound;
 
     private void Start()
     {
@@ -13,8 +14,13 @@ public class PowerUp : MonoBehaviour
     {
         if (collider.CompareTag(GameConstants.PlayerTag))
         {
+
             PlayerBase player = collider.GetComponent<PlayerBase>();
             player.PowerUp();
+            if (collisionSound != null)
+            {
+                AudioSource.PlayClipAtPoint(collisionSound, transform.position);
+            }
             Destroy(gameObject);
         }
     }

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 519029562a7e7cc478156ee0e55b1213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyEmitterWrapper
-  enemyEmitterObject: {fileID: 0}
+  enemyEmitterObject: {fileID: 3241491137200238290}
 --- !u!1001 &7643977888203977255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,13 +54,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9163469258598033131}
     m_Modifications:
+    - target: {fileID: 4311026720783835341, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
+      propertyPath: spawnEnemySound
+      value: 
+      objectReference: {fileID: 8300000, guid: 01e6953edcd2164428e8f16d7c2a24ce, type: 3}
     - target: {fileID: 5109556291289947381, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
       propertyPath: m_Name
       value: ChaserEnemyEmitter
-      objectReference: {fileID: 0}
-    - target: {fileID: 5109556291289947381, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6033895805925499169, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -107,6 +107,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
+--- !u!1 &3241491137200238290 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5109556291289947381, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
+  m_PrefabInstance: {fileID: 7643977888203977255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4154686276546466566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6033895805925499169, guid: 2adf021bfdb40a340bffd70919298ca5, type: 3}
