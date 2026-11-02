@@ -9,13 +9,25 @@ public class EnemyEmitter : MonoBehaviour
     private float closeAnimationTime = 1f;
     private Animator animator;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnEnemy());
         animator = GetComponent<Animator>();
     }
 
-    IEnumerator SpawnEnemy()
+    private bool CanSpawnEnemy()
+    {
+        return GameObject.FindGameObjectsWithTag(GameConstants.EnemyTag).Length < GameConstants.maxEnemiesOnScreen;
+    }
+
+    private IEnumerator CloseEye()
+    {
+        yield return new WaitForSeconds(closeAnimationTime);
+
+        animator.SetBool(GameConstants.enemyEmitterOpen, false);
+    }
+
+    private IEnumerator SpawnEnemy()
     {
         while (true)
         {
@@ -35,21 +47,9 @@ public class EnemyEmitter : MonoBehaviour
 
     }
 
-    bool CanSpawnEnemy()
+    private void CreateEnemy()
     {
-        return GameObject.FindGameObjectsWithTag(GameConstants.EnemyTag).Length < GameConstants.maxEnemiesOnScreen;
-    }
-
-    private IEnumerator CloseEye()
-    {
-        yield return new WaitForSeconds(closeAnimationTime);
-
-        animator.SetBool("open", false);
-    }
-
-    void CreateEnemy()
-    {
-        animator.SetBool("open", true);
+        animator.SetBool(GameConstants.enemyEmitterOpen, true);
         Instantiate(enemyObject, transform.position, transform.rotation);
         StartCoroutine(CloseEye());
     }

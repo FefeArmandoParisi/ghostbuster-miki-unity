@@ -9,8 +9,9 @@ public class BossAttack : MonoBehaviour
     private PlayerBase player;
     private float nextFindTime;
     private Coroutine attackCoroutine;
+    private float timeUntilChangeAnimation = 0.5f;
 
-    void Update()
+    private void Update()
     {
         checkPlayerAndFire();
     }
@@ -21,6 +22,7 @@ public class BossAttack : MonoBehaviour
         {
             if (Time.time >= nextFindTime)
             {
+                // Use the defined shootInterval to set the await time until the next bullet should be shot
                 player = GameObjectUtils.FindPlayer();
                 nextFindTime = Time.time + shootInterval;
             }
@@ -39,7 +41,8 @@ public class BossAttack : MonoBehaviour
         // Spawn bullet at this GameObject's position with the computed rotation.
         if (bulletPrefab != null || parentAnimator != null)
         {
-            parentAnimator.SetBool("isAttacking", true);
+            parentAnimator.SetBool(GameConstants.bossIsAttacking, true);
+            // If boss is defeated, then stop shooting
             if (LevelState.Instance.BossDefeated)
             {
                 if (attackCoroutine != null)
@@ -63,8 +66,8 @@ public class BossAttack : MonoBehaviour
 
     private IEnumerator stopAttackAnimation()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(timeUntilChangeAnimation);
 
-        parentAnimator.SetBool("isAttacking", false);
+        parentAnimator.SetBool(GameConstants.bossIsAttacking, false);
     }
 }

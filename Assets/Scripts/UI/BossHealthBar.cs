@@ -7,12 +7,12 @@ public class BossHealthBar : MonoBehaviour
     [SerializeField] private GameObject bossObject;
     private BossBase boss;
 
-    void Start()
+    private void Start()
     {
         boss = bossObject.GetComponent<BossBase>();
     }
 
-    void Update()
+    private void Update()
     {
         if (healthBarSlider != null && bossObject != null && boss != null)
         {

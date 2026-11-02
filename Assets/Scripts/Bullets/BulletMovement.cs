@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    [SerializeField] bool isBossBullet = false;
-    public float speed;
+    [SerializeField] private bool isBossBullet = false;
+    [SerializeField] private float speed;
 
-    void Start()
+    private void Start()
     {
         Destroy(gameObject, 3); // gameObject is the object containing this script!
     }
 
-    void Update()
+    private void Update()
     {
         if (isBossBullet && LevelState.Instance.BossDefeated)
         {

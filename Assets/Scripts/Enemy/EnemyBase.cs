@@ -30,7 +30,7 @@ public class EnemyBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("PlayerBullet"))
+        if (collider.CompareTag(GameConstants.PlayerBullet))
         {
             Destroy(collider.gameObject);
             health--;
@@ -57,7 +57,7 @@ public class EnemyBase : MonoBehaviour
     {
         Collider2D collider = collision.collider;
 
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag(GameConstants.PlayerTag))
         {
             PlayerBase player = collider.GetComponent<PlayerBase>();
             if (player.CheckStatus() == GameConstants.PlayerStatus.Hurt)

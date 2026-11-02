@@ -1,7 +1,6 @@
 // DEPRECATED
 using System.Collections;
 using UnityEngine;
-using static GameConstants;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -32,9 +31,9 @@ public class PlayerCollision : MonoBehaviour
     {
         Collider2D collider = collision.collider;
 
-        if (collider.CompareTag("Enemy")) // Should also have a case for when the player is immune to hits
+        if (collider.CompareTag(GameConstants.EnemyTag))
         {
-            if (player.CheckStatus() != PlayerStatus.Hurt)
+            if (player.CheckStatus() != GameConstants.PlayerStatus.Hurt)
             {
                 StartCoroutine(FlashRedForFrames(hitFlashFrames));
             }

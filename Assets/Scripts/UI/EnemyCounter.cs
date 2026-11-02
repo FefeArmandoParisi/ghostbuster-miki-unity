@@ -5,12 +5,12 @@ public class EnemyCounter : MonoBehaviour
 {
     private TMP_Text textComponent;
 
-    void Start()
+    private void Start()
     {
         textComponent = GetComponent<TMP_Text>();
     }
 
-    void Update()
+    private void Update()
     {
         int enemiesDefeated;
         if (LevelState.Instance.EnemiesDefeated > LevelState.Instance.EnemiesToDefeat)
@@ -28,7 +28,7 @@ public class EnemyCounter : MonoBehaviour
         SetCounterText($"{enemiesDefeated} / {LevelState.Instance.EnemiesToDefeat}");
     }
 
-    void SetCounterText(string value)
+    private void SetCounterText(string value)
     {
         textComponent.text = value;
     }

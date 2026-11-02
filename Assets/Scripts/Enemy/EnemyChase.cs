@@ -35,7 +35,8 @@ public class EnemyChase : MonoBehaviour
         Vector3 target = player.transform.position;
 
         Vector3 dir = (target - transform.position).normalized;
-        if (Mathf.Abs(dir.x) > 0.001f)
+        float threshold = 0.001f;
+        if (Mathf.Abs(dir.x) > threshold)
         {
             transform.localScale = new Vector3(Mathf.Sign(dir.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }

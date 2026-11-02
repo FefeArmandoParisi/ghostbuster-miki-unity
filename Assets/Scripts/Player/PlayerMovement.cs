@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (LevelState.Instance.BossDefeated)
             {
-                animator.SetBool("Praying", true);
+                animator.SetBool(GameConstants.playerPraying, true);
                 StopMoving();
                 return;
             }
@@ -50,16 +50,16 @@ public class PlayerMovement : MonoBehaviour
     private void Move(Vector2 input)
     {
         moveInput = input.normalized;
-        animator.SetBool("IsMoving", true); //TODO: Change to non hardcoded value
-        animator.SetFloat("InputX", moveInput.x); //TODO: Change to non hardcoded value
-        animator.SetFloat("InputY", moveInput.y); //TODO: Change to non hardcoded value
-        animator.SetFloat("LastInputX", moveInput.x); //TODO: Change to non hardcoded value
-        animator.SetFloat("LastInputY", moveInput.y); //TODO: Change to non hardcoded value
+        animator.SetBool(GameConstants.playerIsMoving, true);
+        animator.SetFloat(GameConstants.playerInputX, moveInput.x);
+        animator.SetFloat(GameConstants.playerInputY, moveInput.y);
+        animator.SetFloat(GameConstants.playerLastInputX, moveInput.x);
+        animator.SetFloat(GameConstants.playerLastInputY, moveInput.y);
     }
 
     private void StopMoving()
     {
         moveInput = Vector2.zero;
-        animator.SetBool("IsMoving", false); //TODO: Change to non hardcoded value
+        animator.SetBool(GameConstants.playerIsMoving, false);
     }
 }

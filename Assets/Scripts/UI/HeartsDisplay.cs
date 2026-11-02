@@ -12,7 +12,7 @@ public class HeartsDisplay : MonoBehaviour
     private List<HealthUnit> healthUnits = new List<HealthUnit>();
     private int lastHealth;
 
-    void Start()
+    private void Start()
     {
         player = GameObjectUtils.FindPlayer();
 
@@ -34,7 +34,7 @@ public class HeartsDisplay : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (player == null || healthUnit == null)
         {

@@ -7,14 +7,14 @@ public class CreditsDisplay : MonoBehaviour
     private TMP_Text textComponent;
     private PlayerBase player;
 
-    void Awake()
+    private void Awake()
     {
         textComponent = GetComponent<TMP_Text>();
         textComponent.text = creditsText;
         player = GameObjectUtils.FindPlayer();
     }
 
-    void Update()
+    private void Update()
     {
         if (player == null)
         {
@@ -24,7 +24,7 @@ public class CreditsDisplay : MonoBehaviour
         SetCreditsText(creditsText + player.CheckRemainingCredits());
     }
 
-    void SetCreditsText(string value)
+    private void SetCreditsText(string value)
     {
         textComponent.text = value;
     }

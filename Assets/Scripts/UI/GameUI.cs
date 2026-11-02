@@ -11,7 +11,7 @@ public class GameUI : MonoBehaviour
     private PlayerBase player;
     private bool hasExited = false;
 
-    void Start()
+    private void Start()
     {
         player = GameObjectUtils.FindPlayer();
 
@@ -26,7 +26,7 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
 
         if (player == null)
@@ -75,23 +75,23 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    private void PauseGame()
     {
         Time.timeScale = 0f;
     }
 
-    void ResumeGame()
+    private void ResumeGame()
     {
         Time.timeScale = 1f;
     }
 
-    void TryAgainHide()
+    private void TryAgainHide()
     {
         ResumeGame();
         tryAgainOverlay.SetActive(false);
     }
 
-    void ReturnToTitle()
+    private void ReturnToTitle()
     {
         hasExited = true;
         ResumeGame();

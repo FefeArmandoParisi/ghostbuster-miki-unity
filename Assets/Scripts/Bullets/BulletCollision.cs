@@ -13,7 +13,7 @@ public class BulletCollision : MonoBehaviour
             return;
         }
 
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag(GameConstants.PlayerTag))
         {
             PlayerBase player = collider.GetComponent<PlayerBase>();
             if (player.CheckStatus() == GameConstants.PlayerStatus.Hurt)

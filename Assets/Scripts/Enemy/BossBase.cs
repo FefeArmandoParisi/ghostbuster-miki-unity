@@ -32,7 +32,7 @@ public class BossBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("PlayerBullet"))
+        if (collider.CompareTag(GameConstants.PlayerBullet))
         {
             Destroy(collider.gameObject);
             currentHealth--;
@@ -57,7 +57,7 @@ public class BossBase : MonoBehaviour
     {
         Collider2D collider = collision.collider;
 
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag(GameConstants.PlayerTag))
         {
             PlayerBase player = collider.GetComponent<PlayerBase>();
             if (player.CheckStatus() == GameConstants.PlayerStatus.Hurt)
@@ -81,7 +81,7 @@ public class BossBase : MonoBehaviour
         spriteRenderer.color = Color.red;
 
         for (int i = 0; i < frames; i++)
-            yield return null; // wait 1 frame
+            yield return null;
 
         spriteRenderer.color = originalColor;
     }

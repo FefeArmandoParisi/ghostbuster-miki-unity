@@ -8,14 +8,14 @@ public class FogParticle : MonoBehaviour
     private float startAlpha;
     private float elapsed;
 
-    void Start()
+    private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         startScale = transform.localScale;
         startAlpha = sprite.color.a;
     }
 
-    void Update()
+    private void Update()
     {
         elapsed += Time.deltaTime;
 

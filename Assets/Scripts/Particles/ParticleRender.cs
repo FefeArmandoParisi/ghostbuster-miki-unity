@@ -7,7 +7,7 @@ public class ParticleRender : MonoBehaviour
     [SerializeField] private float spawnInterval = 0.5f;
     [SerializeField] private float particleSize = 4f;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnParticles());
     }

@@ -178,7 +178,8 @@ public class PlayerBase : MonoBehaviour
 
     private IEnumerator ResetHurtStatusAfterDelay()
     {
-        yield return new WaitForSeconds(hurtDurationSeconds); // This will make a 'timer' for 'hurtDurationSeconds' until it goes to the next line.
+        // This will make a 'timer' for 'hurtDurationSeconds' until it goes to the next line.
+        yield return new WaitForSeconds(hurtDurationSeconds);
 
         if (status == PlayerStatus.Hurt)
         {
@@ -194,7 +195,8 @@ public class PlayerBase : MonoBehaviour
         isFlashingRed = true;
         ApplyVisualState();
 
-        for (int i = 0; i < frames; i++) // This will make a 'timer' for 'frames' until it goes to the next line.
+        // This will make a 'timer' for 'frames' until it goes to the next line.
+        for (int i = 0; i < frames; i++)
         {
             yield return null;
         }

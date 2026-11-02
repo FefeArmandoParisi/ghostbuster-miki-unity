@@ -4,7 +4,7 @@ using UnityEngine;
 public class FireParticle : MonoBehaviour
 {
     private const float timeUntilRemoval = 0.5f;
-    void Start()
+    private void Start()
     {
         StartCoroutine(DestroyParticle());
     }
