@@ -18,7 +18,15 @@ public class BossHealthBar : MonoBehaviour
         {
             int currentHealth = boss.CurrentHealth();
             int maxHealth = boss.MaxHealth;
-            healthBarSlider.value = maxHealth > 0 ? (float)currentHealth / maxHealth : 0f;
+            if (maxHealth > 0)
+            {
+                float bossHealthValue = (float)currentHealth / maxHealth;
+                healthBarSlider.value = bossHealthValue;
+            }
+            else
+            {
+                healthBarSlider.value = 0f;
+            }
         }
     }
 }

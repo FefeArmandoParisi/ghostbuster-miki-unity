@@ -4,7 +4,6 @@ using UnityEngine;
 public class HeartsDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject healthUnit;
-
     private PlayerBase player;
     private int heartsNumber;
     private float healthUnitWidth = 0.32f;
@@ -58,7 +57,7 @@ public class HeartsDisplay : MonoBehaviour
         }
         else
         {
-            // On reset refill from the leftmost empty heart toward the right
+            // UNUSED: On reset refill from the leftmost empty heart toward the right
             for (int i = lastHealth; i < currentHealth; i++)
             {
                 healthUnits[i].RestoreHeart();

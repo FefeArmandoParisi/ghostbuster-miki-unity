@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
@@ -119,11 +118,12 @@ public class GameUI : MonoBehaviour
 
     private IEnumerator LevelCompleteAnimation()
     {
+        float endPos = 100f;
         RectTransform textRect = levelCompleteText.GetComponent<RectTransform>();
         RectTransform canvasRect = textRect.parent as RectTransform;
 
         Vector2 start = new Vector2(0f, canvasRect.rect.height / 2f + textRect.rect.height / 2f);
-        Vector2 end = new Vector2(0f, 100);
+        Vector2 end = new Vector2(0f, endPos);
 
         float duration = 3f;
         float elapsed = 0f;
